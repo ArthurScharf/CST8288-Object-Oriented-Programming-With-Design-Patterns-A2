@@ -28,7 +28,7 @@ public enum AuthorDA implements DAOInterface
     @Override
     public ArrayList<AuthorTO> getAll() throws SQLException 
     {
-       String query = "SELECT * FROM authors";
+        String query = "SELECT * FROM authors";
         // This will always exist because of the enum implementation strategy for the connection
         Connection conn = AuthorDS.INSTANCE.connection;
         
@@ -36,43 +36,125 @@ public enum AuthorDA implements DAOInterface
                 
         try ( Statement stmt = conn.createStatement(); ResultSet results = stmt.executeQuery(query); )
         {
-            // -- Constructing Transfer Objects -- //
+            // -- Constructing  Transfer Objects -- //
             while (results.next()) // Remember that index 0 is ignored. This is why we can do .next() instead of .hasNext()
             {
                 AuthorTO dto = new AuthorTO(); 
-                dto.setId(results.getInt("id"));
-                dto.setFirstName(results.getString("firstName"));
-                dto.setLastName(results.getString("lastName"));
+                dto.setId(results.getInt("AuthorID"));
+                dto.setFirstName(results.getString("FirstName"));
+                dto.setLastName(results.getString("LastName"));
                 dtos.add(dto);
             }//~ while(results.next())
         } catch (SQLException e) {
-            throw new SQLException("Exception when retrieving all authors", e);
+            throw new SQLException("Exception when retrieving all authors: " + e.getMessage(), e);
         }   
         return dtos;
     }
 
     @Override
-    public AuthorTO create(AuthorTO dto) throws SQLException 
-    {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public ArrayList<AuthorTO> create(AuthorTO dto) throws SQLException 
+    {        
+        String query = "INSERT INTO authors (FirstName, LastName) VALUES(?, ?);";
+        
+        Connection connection = AuthorDS.INSTANCE.connection;
+        
+        try (PreparedStatement stmt = connection.prepareStatement(query))
+        {
+            stmt.setString(1, dto.getFirstName());
+            stmt.setString(2, dto.getLastName());
+            
+            int affectedRows = stmt.executeUpdate();
+            
+            
+            
+            if (affectedRows > 0)
+            {
+                return getAll();
+            }
+            else return new ArrayList<>(); // Insert failed
+        } catch (SQLException e)
+        {
+            throw e; // TODO
+        }
     }
 
     @Override
-    public AuthorTO getByIndex(int index) throws SQLException 
+    public AuthorTO get(int id) throws SQLException 
     {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String query = "SELECT * FROM authors where AuthorID = ?";
+        
+        Connection connection = AuthorDS.INSTANCE.connection;
+        
+        try (PreparedStatement stmt = connection.prepareStatement(query))
+        {
+            stmt.setInt(1, id);
+            
+            try (ResultSet results = stmt.executeQuery())
+            {
+                if (results.next()) // Result was found
+                {
+                    AuthorTO to = new AuthorTO();
+                    to.setId(results.getInt("AuthorID"));
+                    to.setFirstName(results.getString("FirstName"));
+                    to.setLastName(results.getString("LastName"));
+                    return to;
+                }
+                else {
+                    return null; // No result was found
+                }
+            }//~ try
+        } catch (SQLException e)
+        {
+            throw new SQLException("Exception retreiving by id", e);
+        } 
     }
 
     @Override
-    public AuthorTO updateByIndex(int index, AuthorTO dto) throws SQLException 
+    public ArrayList<AuthorTO> update(AuthorTO dto) throws SQLException 
     {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String query = "UPDATE authors SET FirstName = ?, LastName = ? WHERE AuthorID = ?";
+        
+        Connection connection = AuthorDS.INSTANCE.connection;
+        
+        try (PreparedStatement stmt = connection.prepareStatement(query))
+        {
+            stmt.setString(1, dto.getFirstName());
+            stmt.setString(2, dto.getLastName());
+            stmt.setInt(3, dto.getId());
+            
+            stmt.executeUpdate();
+            
+            return getAll();
+            
+        } catch (SQLException e)
+        {
+            throw new SQLException("Exception updating author", e);
+        }
     }
 
     @Override
-    public AuthorTO deleteByIndex(int index) throws SQLException 
+    public ArrayList<AuthorTO> delete(int id) throws SQLException 
     {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String query1 = "DELETE FROM authorisbn WHERE AuthorID = ?";
+        String query2 = "DELETE FROM authors WHERE AuthorID = ?";
+        
+        Connection connection = AuthorDS.INSTANCE.connection;
+        
+        try (
+                PreparedStatement stmt1 = connection.prepareStatement(query1); 
+                PreparedStatement stmt2 = connection.prepareStatement(query2))
+        {
+            stmt1.setInt(1, id);
+            stmt1.executeUpdate();
+            stmt2.setInt(1, id);
+            stmt2.executeUpdate();
+            return getAll();
+        } catch (SQLException e)
+        {
+            throw new SQLException("Exception deleting author", e);
+        }   
     }
+    
+    
     
 }

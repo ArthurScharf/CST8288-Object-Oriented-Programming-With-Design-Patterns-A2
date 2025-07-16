@@ -29,38 +29,37 @@ public class LoginView extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        response.setContentType("text/html;charset=UTF-8");
-        
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+                
+        try (PrintWriter out = response.getWriter()) 
+        {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("   <title>Login</title>");
+            out.println("<title>Login View</title>");       
             out.println("</head>");
             out.println("<body>");
-            
-            
             out.println("    <h2>Login</h2>");
-            out.println("    <form action=\"Login\" method=\"POST\">");
+            out.println("    <form action=\"AuthController\" method=\"POST\">");
             out.println("        <label for=\"username\">Username:</label><br>");
             out.println("        <input type=\"text\" id=\"username\" name=\"username\" required><br><br>");
             out.println("        <label for=\"password\">Password:</label><br>");
             out.println("        <input type=\"password\" id=\"password\" name=\"password\" required><br><br>");
-            out.println("        <input type=\"submit\" value=\"Submit\">");
+            
+            // -- Action Types -- //
+            out.println("        <button type=\"submit\" name=\"action\" value=\"GetAuthorsView\">Get All</button>");
+            out.println("        <button type=\"submit\" name=\"action\" value=\"GetAuthorByIDView\">Get One</button>");
+            out.println("        <button type=\"submit\" name=\"action\" value=\"CreateAuthorView\">Create</button>");
+            out.println("        <button type=\"submit\" name=\"action\" value=\"UpdateAuthorView\">Update</button>");
+            out.println("        <button type=\"submit\" name=\"action\" value=\"DeleteAuthorView\">Delete</button>");
+            
+            
             out.println("    </form>");
-            
-            
             out.println("</body>");
             out.println("</html>");
-            
-            
-        
         } catch (IOException e)
         {
-            response.sendRedirect("localhost:8080/Arthur.Scharf.A2/");
-            // TODO
+            request.setAttribute("ErrorMessage", ErrorMessage.EM_BAD_CREDENTIALS);
+            getServletContext().getNamedDispatcher("ErrorView").include(request, response);
         } 
         
         

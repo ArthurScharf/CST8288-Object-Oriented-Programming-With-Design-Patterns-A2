@@ -1,38 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
-    <!-- Name to Class -->
     <servlet>
         <servlet-name>controller</servlet-name>
         <servlet-class>viewlayer.FrontController</servlet-class>
     </servlet>
-    <!-- No URL mappings for these so they can only be accessed through front controller -->
     <servlet>
-        <servlet-name>test</servlet-name>
-        <servlet-class>viewlayer.TestView</servlet-class>
+        <servlet-name>AuthController</servlet-name>
+        <servlet-class>viewlayer.AuthController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginView</servlet-name>
         <servlet-class>viewlayer.LoginView</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Login</servlet-name>
-        <servlet-class>viewlayer.Login</servlet-class>
+        <servlet-name>GetAuthorsView</servlet-name>
+        <servlet-class>viewlayer.GetAuthorsView</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Read</servlet-name>
-        <servlet-class>viewlayer.Read</servlet-class>
+        <servlet-name>GetAuthorByIDView</servlet-name>
+        <servlet-class>viewlayer.GetAuthorByIDView</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetAuthorByIDAction</servlet-name>
+        <servlet-class>viewlayer.GetAuthorByIDAction</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateAuthorView</servlet-name>
+        <servlet-class>viewlayer.CreateAuthorView</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateAuthorAction</servlet-name>
+        <servlet-class>viewlayer.CreateAuthorAction</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateAuthorView</servlet-name>
+        <servlet-class>viewlayer.UpdateAuthorView</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateAuthorAction</servlet-name>
+        <servlet-class>viewlayer.UpdateAuthorAction</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteAuthorView</servlet-name>
+        <servlet-class>viewlayer.DeleteAuthorView</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteAuthorAction</servlet-name>
+        <servlet-class>viewlayer.DeleteAuthorAction</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ErrorView</servlet-name>
+        <servlet-class>viewlayer.ErrorView</servlet-class>
     </servlet>
 
-    <!-- Single URL mapping so user can only access application through controller -->
     <servlet-mapping>
         <servlet-name>controller</servlet-name>
         <url-pattern>/controller/*</url-pattern>
     </servlet-mapping>
-
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>30</session-timeout>
     </session-config>
-    
 </web-app>

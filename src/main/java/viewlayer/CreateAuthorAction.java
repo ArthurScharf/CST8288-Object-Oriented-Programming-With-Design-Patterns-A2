@@ -4,22 +4,22 @@
  */
 package viewlayer;
 
+import businesslayer.AuthorBusinessLogic;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import transferableobjects.AuthorTO;
 
 /**
- * TODO: This should be converted to business logic. 
- *       Front Controller allows this class to operate without being a servlet
- * 
- * 
- * 
- * @author User
+ *
+ * @author Arthur Scharf
  */
-public class Login extends HttpServlet {
+public class CreateAuthorAction extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,20 +31,25 @@ public class Login extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException 
+    {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) 
+        
+        String firstName = request.getParameter("FirstName");
+        String lastName  = request.getParameter("LastName");
+        
+        if (firstName == null || lastName == null)
         {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("   <title>Login</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("   <p>Logged in</p>");
-            out.println("</body>");
-            out.println("</html>");
+            request.setAttribute("ErrorMessage", ErrorMessage.EM_BAD_INFO);
+            getServletContext().getNamedDispatcher("ErrorView").include(request, response);
         }
+            
+        AuthorTO dto = new AuthorTO();
+        dto.setFirstName(firstName);
+        dto.setLastName(lastName);
+        ArrayList<AuthorTO> authors = AuthorBusinessLogic.create(dto);
+        
+        getServletContext().getNamedDispatcher("GetAuthorsView").include(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

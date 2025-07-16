@@ -12,15 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+
 /**
- *
- * @author User
+ * @author Arthur Scharf
  */
 public class FrontController extends HttpServlet 
 {
-    
-    
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -30,37 +28,43 @@ public class FrontController extends HttpServlet
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    {  
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) 
         {
-            /* ---- TODO ---- 
-            If   -  Auth succeeds, process normally
-            else -  Redirect back to login page
-            */
-            
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FrontController</title>");
+            out.println("    <title>Login & Actions</title>");
             out.println("</head>");
-            out.println("<body>");
-            
+            out.println("<body style=\"background-color: powderblue\">");
+            out.println("<center>");
+            out.println("<p>Program by:  Arthur Scharf (040797015)</p>");
+            out.println("<p>For: 25S CST8288 Section 010 Assignment 2</p>");
+            out.println("<p>Things put after FrontController\'s include wouldn\'t render for some reason. I became tired of trying to fix it so"
+                    + " I put my credentials here. Please forgive me :( </p>");
+            out.println("<a href=\"http://localhost:8080/Arthur.Scharf.A2/controller/LoginView\">Home</a>");
+
             // This application doesn't use nested resources
             // Gets the Request dispatcher for the servlet associated with the path
             RequestDispatcher dispatcher = getServletContext().getNamedDispatcher(request.getPathInfo().split("/")[1]);
-            if (dispatcher != null)
-            {   // Servlet found
+            if (dispatcher != null)  // Servlet found
+            {
                 dispatcher.include(request, response);
             } else {
-                // TODO: NotFound Servlet
-                out.println("<h1> Resource \"" + request.getPathInfo() + "\" not found");
+                request.setAttribute("ErrorMessage", ErrorMessage.EM_BAD_PATH);
+                getServletContext().getNamedDispatcher("ErrorView").include(request, response);
             }
             
+
+            out.println("</center>");
             out.println("</body>");
             out.println("</html>");
+        
+        } catch (IOException e)
+        {
+            response.sendRedirect("localhost:8080/Arthur.Scharf.A2/WEB-INF/badlogin.html");
         }
     }
 

@@ -7,16 +7,23 @@ package viewlayer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import viewlayer.ErrorMessage;
+
 /**
  *
- * @author User
+ * @author Arthur Scharf
+ * 
+ * @description A Servlet for including a variety of error messages. Since these messages are often very simple,
+ *              it's easier to localize them here, in a single servlet
  */
-public class Read extends HttpServlet {
-
+public class ErrorView extends HttpServlet 
+{
+        
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -26,20 +33,31 @@ public class Read extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Read</title>");
-            out.println("</head>");
+        try (PrintWriter out = response.getWriter()) 
+        {
+            // I'm pretty sure casting like this is bad, but I will only ever store ErrorMessages in this attribute
+            ErrorMessage message = (ErrorMessage)request.getAttribute("ErrorMessage");
+            
+            
             out.println("<body>");
-            out.println("<h1>Servlet Read at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            
+            switch(message)
+            {
+                case(ErrorMessage.EM_BAD_CREDENTIALS) ->                 {
+                    out.println("<h1>ERROR: Incorrect login information</h1>");
+                }
+                case(ErrorMessage.EM_BAD_INFO) ->                 {
+                    out.println("<h1>ERROR: Incorrect/invalid form information</h1>");
+                }
+                case(ErrorMessage.EM_BAD_PATH) ->                 {
+                    out.println("<h1>ERROR: Bad Path</h1>");
+                }
+            }
+            
+            out.println("</body>");    
         }
     }
 

@@ -6,14 +6,16 @@ package dataaccesslayer;
 
 import java.io.InputStream;
 import java.io.IOException;
+import java.util.Properties;
 
 import java.sql.Connection;
-import java.util.Properties;
 import java.sql.DriverManager;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author User
@@ -22,7 +24,6 @@ public enum AuthorDS
 {
     // SINGLETON Pattern. Threadsafe
     INSTANCE;
-    
     
     public Connection connection;
     
@@ -33,12 +34,26 @@ public enum AuthorDS
     {
         info = new String[3];
         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
             openPropertyFile(info);
             connection = DriverManager.getConnection(info[0], info[1], info[2]);
         } catch (SQLException e) {
-            throw new ExceptionInInitializerError("Critical failure establishing database connection: " + e.getMessage());
+            throw new ExceptionInInitializerError(
+                    "Critical failure establishing database connection: " 
+                    +  "url:      " + info[0] + "\n" 
+                    +  "username: " + info[1] + "\n"
+                    +  "password: " + info[2] + "\n"
+                    + e.getMessage());
         } catch (IOException e) {
-            throw new ExceptionInInitializerError("Critical failure opening `property` file: " + e.getMessage());
+            throw new ExceptionInInitializerError(
+                       "Critical failure opening `property` file \n" 
+                    +  "url:      " + info[0] + "\n" 
+                    +  "username: " + info[1] + "\n"
+                    +  "password: " + info[2] + "\n"
+                    + e.getMessage());
+        } catch (ClassNotFoundException e)
+        {
+            Logger.getLogger(AuthorDS.class.getName()).log(Level.SEVERE, null, e);
         }
     }
     
@@ -48,7 +63,7 @@ public enum AuthorDS
     {
         Properties properties = new Properties();
         
-        try (InputStream in = Files.newInputStream(Paths.get("src/main/java/database.properties")))
+        try (InputStream in = AuthorDS.class.getClassLoader().getResourceAsStream("database.properties"))
         {
             properties.load(in);
         } catch (IOException e)

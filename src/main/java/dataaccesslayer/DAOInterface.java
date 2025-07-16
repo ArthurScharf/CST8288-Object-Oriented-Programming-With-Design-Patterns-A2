@@ -18,13 +18,13 @@ public interface DAOInterface
 {    
     public ArrayList<AuthorTO> getAll() throws SQLException;
     
-    public AuthorTO create(AuthorTO dto) throws SQLException;
+    public ArrayList<AuthorTO> create(AuthorTO dto) throws SQLException;
     
-    public AuthorTO getByIndex(int index) throws SQLException;
+    public AuthorTO get(int id) throws SQLException;
     
-    public AuthorTO updateByIndex(int index, AuthorTO dto) throws SQLException;
+    public ArrayList<AuthorTO> update(AuthorTO dto) throws SQLException;
     
-    public AuthorTO deleteByIndex(int index) throws SQLException;
+    public ArrayList<AuthorTO> delete(int id) throws SQLException;
 }
 
 
