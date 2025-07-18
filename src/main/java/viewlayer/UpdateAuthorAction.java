@@ -17,7 +17,7 @@ import transferableobjects.AuthorTO;
 
 /**
  *
- * @author User
+ * @author Arthur Scharf
  */
 public class UpdateAuthorAction extends HttpServlet {
 

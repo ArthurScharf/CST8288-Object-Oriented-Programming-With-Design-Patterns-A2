@@ -24,6 +24,11 @@ public class UserAuthentication
      * @param username
      * @param password
      * @return true if username and password are legal
+     * 
+     * This is obviously not how you'd do really authentication. Given this project
+     * required only a single valid user, I decided to simulate a login system with
+     * this function. I'd normally query the database for credentials like this.
+     * Upon finding a valid match, I'd return true, false otherwise
      */
     public static boolean authenticateUser(String username, String password)
     {

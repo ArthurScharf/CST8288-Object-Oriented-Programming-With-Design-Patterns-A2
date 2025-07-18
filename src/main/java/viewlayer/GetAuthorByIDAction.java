@@ -18,7 +18,7 @@ import transferableobjects.AuthorTO;
 
 /**
  *
- * @author User
+ * @author Arthur Scharf
  */
 @WebServlet(name = "GetAuthorByIDAction", urlPatterns = {"/GetAuthorByIDAction"})
 public class GetAuthorByIDAction extends HttpServlet 

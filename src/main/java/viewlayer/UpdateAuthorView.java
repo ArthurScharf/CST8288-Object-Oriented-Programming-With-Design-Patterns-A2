@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author User
+ * @author Arthur Scharf
  */
 public class UpdateAuthorView extends HttpServlet {
 
