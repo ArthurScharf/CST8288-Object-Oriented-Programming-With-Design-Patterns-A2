@@ -53,8 +53,7 @@ public class AuthController extends HttpServlet {
         } else {
             request.setAttribute("ErrorMessage", ErrorMessage.EM_BAD_PATH);
             getServletContext().getNamedDispatcher("ErrorView").include(request, response);
-        }
-        
+        }   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

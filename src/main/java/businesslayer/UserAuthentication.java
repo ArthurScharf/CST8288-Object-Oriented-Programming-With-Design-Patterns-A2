@@ -29,6 +29,10 @@ public class UserAuthentication
      * required only a single valid user, I decided to simulate a login system with
      * this function. I'd normally query the database for credentials like this.
      * Upon finding a valid match, I'd return true, false otherwise
+     * 
+     * Additionally, I would normally want a UserValidation Class to clean and 
+     * check format for input. Again, the limited nature of this project lead
+     * me allocate my time to what was in the requirements
      */
     public static boolean authenticateUser(String username, String password)
     {
