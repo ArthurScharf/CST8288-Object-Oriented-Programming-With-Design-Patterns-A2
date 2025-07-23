@@ -4,6 +4,7 @@
         <servlet-name>controller</servlet-name>
         <servlet-class>viewlayer.FrontController</servlet-class>
     </servlet>
+    
     <servlet>
         <servlet-name>AuthController</servlet-name>
         <servlet-class>viewlayer.AuthController</servlet-class>
@@ -12,6 +13,8 @@
         <servlet-name>LoginView</servlet-name>
         <servlet-class>viewlayer.LoginView</servlet-class>
     </servlet>
+    
+    
     <servlet>
         <servlet-name>GetAuthorsView</servlet-name>
         <servlet-class>viewlayer.GetAuthorsView</servlet-class>
@@ -20,6 +23,8 @@
         <servlet-name>GetAuthorByIDView</servlet-name>
         <servlet-class>viewlayer.GetAuthorByIDView</servlet-class>
     </servlet>
+    
+    
     <servlet>
         <servlet-name>GetAuthorByIDAction</servlet-name>
         <servlet-class>viewlayer.GetAuthorByIDAction</servlet-class>
@@ -28,6 +33,8 @@
         <servlet-name>CreateAuthorView</servlet-name>
         <servlet-class>viewlayer.CreateAuthorView</servlet-class>
     </servlet>
+    
+    
     <servlet>
         <servlet-name>CreateAuthorAction</servlet-name>
         <servlet-class>viewlayer.CreateAuthorAction</servlet-class>
@@ -36,6 +43,8 @@
         <servlet-name>UpdateAuthorView</servlet-name>
         <servlet-class>viewlayer.UpdateAuthorView</servlet-class>
     </servlet>
+    
+    
     <servlet>
         <servlet-name>UpdateAuthorAction</servlet-name>
         <servlet-class>viewlayer.UpdateAuthorAction</servlet-class>
@@ -44,19 +53,67 @@
         <servlet-name>DeleteAuthorView</servlet-name>
         <servlet-class>viewlayer.DeleteAuthorView</servlet-class>
     </servlet>
+    
+    
     <servlet>
         <servlet-name>DeleteAuthorAction</servlet-name>
         <servlet-class>viewlayer.DeleteAuthorAction</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>GetTitlesView</servlet-name>
+        <servlet-class>viewlayer.GetTitlesView</servlet-class>
+    </servlet>
+    
+    
+    <servlet>
+        <servlet-name>GetTitleByISBNView</servlet-name>
+        <servlet-class>viewlayer.GetTitleByISBNView</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetTitleByISBNAction</servlet-name>
+        <servlet-class>viewlayer.GetTitleByISBNAction</servlet-class>
+    </servlet>
+    
+    
+    <servlet>
+        <servlet-name>CreateTitleView</servlet-name>
+        <servlet-class>viewlayer.CreateTitleView</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateTitleAction</servlet-name>
+        <servlet-class>viewlayer.CreateTitleAction</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>UpdateTitleView</servlet-name>
+        <servlet-class>viewlayer.UpdateTitleView</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateTitleAction</servlet-name>
+        <servlet-class>viewlayer.UpdateTitleAction</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>DeleteTitleView</servlet-name>
+        <servlet-class>viewlayer.DeleteTitleView</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteTitleAction</servlet-name>
+        <servlet-class>viewlayer.DeleteTitleAction</servlet-class>
+    </servlet>
+   
+   
+    <servlet>
         <servlet-name>ErrorView</servlet-name>
         <servlet-class>viewlayer.ErrorView</servlet-class>
     </servlet>
+
 
     <servlet-mapping>
         <servlet-name>controller</servlet-name>
         <url-pattern>/controller/*</url-pattern>
     </servlet-mapping>
+    
     
     <session-config>
         <session-timeout>30</session-timeout>
