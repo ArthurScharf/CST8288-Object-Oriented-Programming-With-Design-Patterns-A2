@@ -19,7 +19,7 @@ import transferableobjects.AuthorTO;
  *
  * @author Arthur Scharf
  */
-public enum AuthorDA implements DAOInterface
+public enum AuthorDA implements AuthorsDAOInterface
 {
     
     // SINGLETON pattern. Threadsafe
@@ -30,7 +30,7 @@ public enum AuthorDA implements DAOInterface
     {
         String query = "SELECT * FROM authors";
         // This will always exist because of the enum implementation strategy for the connection
-        Connection conn = AuthorDS.INSTANCE.connection;
+        Connection conn = DataSource.INSTANCE.connection;
         
         ArrayList<AuthorTO> dtos = new ArrayList<>();
                 
@@ -56,7 +56,7 @@ public enum AuthorDA implements DAOInterface
     {        
         String query = "INSERT INTO authors (FirstName, LastName) VALUES(?, ?);";
         
-        Connection connection = AuthorDS.INSTANCE.connection;
+        Connection connection = DataSource.INSTANCE.connection;
         
         try (PreparedStatement stmt = connection.prepareStatement(query))
         {
@@ -64,8 +64,6 @@ public enum AuthorDA implements DAOInterface
             stmt.setString(2, dto.getLastName());
             
             int affectedRows = stmt.executeUpdate();
-            
-            
             
             if (affectedRows > 0)
             {
@@ -83,7 +81,7 @@ public enum AuthorDA implements DAOInterface
     {
         String query = "SELECT * FROM authors where AuthorID = ?";
         
-        Connection connection = AuthorDS.INSTANCE.connection;
+        Connection connection = DataSource.INSTANCE.connection;
         
         try (PreparedStatement stmt = connection.prepareStatement(query))
         {
@@ -114,7 +112,7 @@ public enum AuthorDA implements DAOInterface
     {
         String query = "UPDATE authors SET FirstName = ?, LastName = ? WHERE AuthorID = ?";
         
-        Connection connection = AuthorDS.INSTANCE.connection;
+        Connection connection = DataSource.INSTANCE.connection;
         
         try (PreparedStatement stmt = connection.prepareStatement(query))
         {
@@ -138,7 +136,7 @@ public enum AuthorDA implements DAOInterface
         String query1 = "DELETE FROM authorisbn WHERE AuthorID = ?";
         String query2 = "DELETE FROM authors WHERE AuthorID = ?";
         
-        Connection connection = AuthorDS.INSTANCE.connection;
+        Connection connection = DataSource.INSTANCE.connection;
         
         try (
                 PreparedStatement stmt1 = connection.prepareStatement(query1); 

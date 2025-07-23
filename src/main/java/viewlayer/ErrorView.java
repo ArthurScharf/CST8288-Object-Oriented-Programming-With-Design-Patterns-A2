@@ -39,24 +39,10 @@ public class ErrorView extends HttpServlet
         try (PrintWriter out = response.getWriter()) 
         {
             // I'm pretty sure casting like this is bad, but I will only ever store ErrorMessages in this attribute
-            ErrorMessage message = (ErrorMessage)request.getAttribute("ErrorMessage");
-            
+            String message = (String)request.getAttribute("ErrorMessage");
             
             out.println("<body>");
-            
-            switch(message)
-            {
-                case(ErrorMessage.EM_BAD_CREDENTIALS) ->                 {
-                    out.println("<h1>ERROR: Incorrect login information</h1>");
-                }
-                case(ErrorMessage.EM_BAD_INFO) ->                 {
-                    out.println("<h1>ERROR: Incorrect/invalid form information</h1>");
-                }
-                case(ErrorMessage.EM_BAD_PATH) ->                 {
-                    out.println("<h1>ERROR: Bad Path</h1>");
-                }
-            }
-            
+            out.println("<p>" + message + "</p>");
             out.println("</body>");    
         }
     }

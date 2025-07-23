@@ -51,7 +51,7 @@ public class AuthController extends HttpServlet {
         {
             dispatcher.include(request, response);
         } else {
-            request.setAttribute("ErrorMessage", ErrorMessage.EM_BAD_PATH);
+            request.setAttribute("ErrorMessage", "ERROR: Cannot find resource: " + request.getParameter("action"));
             getServletContext().getNamedDispatcher("ErrorView").include(request, response);
         }   
     }

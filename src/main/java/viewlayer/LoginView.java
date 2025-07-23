@@ -46,12 +46,23 @@ public class LoginView extends HttpServlet {
             out.println("        <input type=\"password\" id=\"password\" name=\"password\" required><br><br>");
             
             // -- Action Types -- //
-            out.println("        <button type=\"submit\" name=\"action\" value=\"GetAuthorsView\">Get All</button>");
-            out.println("        <button type=\"submit\" name=\"action\" value=\"GetAuthorByIDView\">Get One</button>");
+            out.println("        <button type=\"submit\" name=\"action\" value=\"GetAuthorsView\">Get All Authors</button>");
+            out.println("        <button type=\"submit\" name=\"action\" value=\"GetAuthorByIDView\">Get Author by ID</button>");
             out.println("        <button type=\"submit\" name=\"action\" value=\"CreateAuthorView\">Create</button>");
             out.println("        <button type=\"submit\" name=\"action\" value=\"UpdateAuthorView\">Update</button>");
             out.println("        <button type=\"submit\" name=\"action\" value=\"DeleteAuthorView\">Delete</button>");
             
+            out.println("        <br><br>");
+            
+            out.println("        <button type=\"submit\" name=\"action\" value=\"GetTitlesView\">Get All Titles</button>");
+            out.println("        <button type=\"submit\" name=\"action\" value=\"GetTitleByISBNView\">Get Title by ISBN</button>");
+            out.println("        <button type=\"submit\" name=\"action\" value=\"CreateTitleView\">Create</button>");
+            out.println("        <button type=\"submit\" name=\"action\" value=\"UpdateTitleView\">Update</button>");
+            out.println("        <button type=\"submit\" name=\"action\" value=\"DeleteTitleView\">Delete</button>");
+            
+            /*
+                // Delete Title
+            */
             
             out.println("    </form>");
             out.println("</body>");
